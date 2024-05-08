@@ -4,7 +4,7 @@ _0 = ord('0')
 _9 = ord('9')
 
 def check_address(address):
-    if not isinstance(address, str):
+    if not isinstance(address, str) or address == '':
         return False
     
     address = address.strip()
@@ -43,6 +43,15 @@ def assert_function():
     print(assert_result("11:22:33:44:55", False))
     print(assert_result("H:22:33:44:55:661", False))
 
+def check_cast(address):
+    first_byte = int(address[:2], base =16)
+    first_byte_bin = bin(first_byte)
+
+    if first_byte_bin[-1] == '0':
+        return "Unicast"
+    else: 
+        return "Multicast"
+
 
 def main():
     assert_function()
@@ -50,9 +59,12 @@ def main():
     mac_address = input("Please enter a mac address that you want to check. ")
 
     ok = check_address(mac_address)
+    print(ok)
 
     if ok:
-        print(mac_address[:8])
+        print(f"valid mac address {mac_address[:8]}, the address is {check_cast(mac_address)}")
+    else:
+        print(f"invalid mac address {mac_address}")
 
 if __name__ == "__main__":
     main()
