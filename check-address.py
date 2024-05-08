@@ -4,7 +4,7 @@ _0 = ord('0')
 _9 = ord('9')
 
 def check_address(address):
-    if not isinstance(address, str) or address == '':
+    if not isinstance(address, str):
         return False
     
     address = address.strip()
@@ -12,6 +12,8 @@ def check_address(address):
         bytes = address.split(":")
     elif ('-' in address) and (':' not in address):
         bytes = address.split("-")
+    else:
+        return False
 
     if len(bytes) != 6:
         return False
